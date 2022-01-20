@@ -27,15 +27,13 @@ const PokemonList = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
   const [searchingPokemon, setSearchingPokemon] = useState("");
 
-  function getPokemonsData(type) {
+  function  getPokemonsData(type) {
     setFetchingPokemonList(true);
-    if (
-      pokemonList != null &&
-      pokemonList.length > 20 &&
-      type == "loadFromSwipe"
-    )
-      return setFetchingPokemonList(false);
-
+    if (type == "loadFromSwipe") {
+      setNextRequest("pokemon");
+      setPokemonList([]);
+      
+    }
     api
       .get(nextRequest)
       .then(({ data }) => {
@@ -61,7 +59,15 @@ const PokemonList = () => {
 
   const searchPokemonAction = () => {
     setSearchingPokemon(true);
-    if (searchPokemon == null || searchPokemon == "") return;
+    if (searchPokemon == null || searchPokemon == "") {
+      Toast.show({
+        type: "info",
+        text1: "Ops!",
+        text2: "Please write the name or id in the text field",
+      });
+      setSearchingPokemon(false);
+      return;
+    }
     api
       .get(`pokemon/${searchPokemon.toLowerCase()}`)
       .then(({ data }) => {
@@ -229,6 +235,24 @@ const PokemonList = () => {
                 }}
                 placeholder={"Search by pokemon name or id"}
               />
+              {searchPokemon != "" && (
+                <TouchableOpacity
+                  disabled={searchingPokemon}
+                  onPress={() => {
+                    setSearchPokemon("");
+                  }}
+                  style={{
+                    position: "absolute",
+                    right: 70,
+                    alignItems: "center",
+                    padding: 10,
+                  }}
+                >
+                  <Text style={{ color: "#333", fontWeight: "bold" }}>
+                    {"X"}
+                  </Text>
+                </TouchableOpacity>
+              )}
               <TouchableOpacity
                 disabled={searchingPokemon}
                 onPress={() => {
@@ -237,7 +261,6 @@ const PokemonList = () => {
                 style={{
                   position: "absolute",
                   right: 0,
-                  width: "20%",
                   alignItems: "center",
                   padding: 10,
                   borderWidth: 1,
