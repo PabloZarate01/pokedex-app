@@ -27,12 +27,11 @@ const PokemonList = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
   const [searchingPokemon, setSearchingPokemon] = useState("");
 
-  function  getPokemonsData(type) {
+  function getPokemonsData(type) {
     setFetchingPokemonList(true);
     if (type == "loadFromSwipe") {
       setNextRequest("pokemon");
       setPokemonList([]);
-      
     }
     api
       .get(nextRequest)
