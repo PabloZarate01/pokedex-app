@@ -1,0 +1,13 @@
+{
+    "cli": {
+      "version": ">= 0.34.0"
+    },
+    "submit": {
+      "production": {
+        "android": {
+          "serviceAccountKeyPath": "/Users/pablozarate/myprojects/androidAccess/pc-api-7602892377833951420-929-b93d6a0acc8e.json",
+          "track": "internal"
+        }
+      }
+    }
+  }

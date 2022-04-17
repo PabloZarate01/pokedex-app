@@ -146,7 +146,7 @@ const PokemonList = () => {
                     let { color } = pokemonTypes[type.type.name];
                     return (
                       <View
-                        key={index}
+                        key={index + Math.floor(Math.random() * (999 - 1)) + 1}
                         style={{
                           borderRadius: 5,
                           padding: 5,
